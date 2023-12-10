@@ -1,10 +1,58 @@
-- 👋 Hi, I’m @Liileeofficial
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+ investment==
+    def __init__(self, name, symbol, price):
+        self.name = name
+        self.symbol = symbol
+        self.price = price
+        self.quantity = 0
 
-<!---
-Liileeofficial/Liileeofficial is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
-deposit, withdraw--->![1701059078530](https://github.com/Liileeofficial/Liileeofficial/assets/147659838/ada72b7c-0a93-4f64-ae3f-9b9bece6f48a)
+    def buy(self, quantity):
+        self.quantity += quantity
+
+    def sell(self, quantity):
+        if quantity <= self.quantity:
+            self.quantity -= quantity
+        else:
+            print("Not enough shares to sell.")
+
+    def calculate_value(self):
+        return self.quantity * self.price
+
+
+class Portfolio:
+    def __init__(self):
+        self.investments = []
+
+    def add_investment(self, investment):
+        self.investments.append(investment)
+
+    def calculate_total_value(self):
+        total_value = 0
+        for investment in self.investments:
+            total_value += investment.calculate_value()
+        return total_value
+
+
+# Example usage:
+
+if __name__ == "__main__":
+    # Create investments
+    apple_stock = Investment("Apple Inc.", "AAPL", 150.0)
+    google_stock = Investment("Alphabet Inc.", "GOOGL", 2800.0)
+
+    # Create a portfolio
+    my_portfolio = Portfolio()
+
+    # Add investments to the portfolio
+    my_portfolio.add_investment(apple_stock)
+    my_portfolio.add_investment(google_stock)
+
+    # Buy and sell some shares
+    apple_stock.buy(10)
+    google_stock.buy(5)
+
+    apple_stock.sell(3)
+    google_stock.sell(2)
+
+    # Calculate and print the total portfolio value
+    total_value = my_portfolio.calculate_total_value()
+    print(f"Total Portfolio Value: ${total_value}")
